@@ -1,0 +1,31 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches:
+      - master  # Укажите ветку, для которой будет выполняться анализ (например, main или master)
+  pull_request:
+    branches:
+      - master  # Также анализ на pull request в main
+
+jobs:
+  sonarqube:
+    name: SonarCloud Scan
+    runs-on: windows-latest  # Операционная система для выполнения CI
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # Клонирует ваш репозиторий
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'adoptopenjdk'
+
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@v1
+      with:
+        sonar-token: ${{ secrets.SONAR_TOKEN }}  # Ваш токен SonarCloud (сохранен в секрете GitHub)
+        projectKey: ${{ secrets.SONAR_PROJECT_KEY }}  # Ключ вашего проекта (сохранен в секрете GitHub)
+        organization: ${{ secrets.SONAR_ORGANIZATION }}  # Организация в SonarCloud (сохранена в секрете GitHub)
