@@ -21,10 +21,10 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'adoptopenjdk'
+        distribution: 'adoptium'
 
     - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@v1
+      uses: sonarsource/sonarcloud-github-action@v2
       with:
         sonar-token: ${{ secrets.SONAR_TOKEN }}  # Ваш токен SonarCloud (сохранен в секрете GitHub)
         projectKey: ${{ secrets.SONAR_PROJECT_KEY }}  # Ключ вашего проекта (сохранен в секрете GitHub)
